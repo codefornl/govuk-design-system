@@ -1,12 +1,10 @@
 @include govuk-exports("app-pane") {
-  $toc-width: 300px;
+  $toc-width: 260px;
+  $toc-width-tablet: 210px;
 
   .app-pane.app-pane--enabled {
-    $pane-height: 100vh;
-
     @include govuk-media-query($from: tablet) {
       display: flex;
-      height: $pane-height;
       flex-direction: column;
     }
   }
@@ -23,48 +21,51 @@
     }
   }
 
+  .app-pane__nav {
+    @include govuk-media-query($from: tablet) {
+      display: flex;
+      background-color: $app-light-grey;
+      flex-direction: column;
+      flex: 1 0 auto;
+    }
+  }
+
   .app-pane__body {
     @include govuk-media-query($from: tablet) {
       display: flex;
       position: relative;
       min-height: 0;
-      flex: 1 1 100%;
+      overflow: inherit;
+    }
 
-      > * {
-        overflow-x: scroll;
-        -webkit-overflow-scrolling: touch;
-        -ms-overflow-style: none;
-      }
+    @include govuk-media-query(1160px) {
+      width: 100%;
     }
   }
 
   .app-pane__subnav {
-    border-right: 1px solid $govuk-border-colour;
     @include govuk-media-query($from: tablet) {
-      width: $toc-width;
-      border-right: 1px solid $govuk-border-colour;
+      width: $toc-width-tablet;
       flex: 0 0 auto;
+    }
+    @include govuk-media-query($from: desktop) {
+      width: $toc-width;
     }
   }
 
   .app-pane__content {
     @include govuk-media-query($from: tablet) {
       display: flex;
-      margin-left: auto;
-      flex: 1 1 auto;
+      min-width: 0;
+      flex: 1 1 100%;
       flex-direction: column;
-
-      // Stick footer to bottom of screen if content is shorter than viewport
-      main {
-        display: block;
-        flex: 1 0 auto;
-      }
     }
   }
 
-  .no-flexbox {
+  .no-flexbox.no-flexboxtweener {
     .app-pane {
       height: auto;
+      overflow: visible;
       @include govuk-clearfix;
     }
 
@@ -76,13 +77,12 @@
       width: $toc-width;
       float: left;
       overflow-x: hidden;
-      border-right: none;
+      border-right: 0;
     }
 
     .app-pane__content {
-      overflow-x: hidden;
-      border-left: 1px solid $govuk-border-colour;
       margin-left: -1px;
+      overflow-x: hidden;
     }
   }
 }

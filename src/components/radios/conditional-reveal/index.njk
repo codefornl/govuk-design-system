@@ -1,18 +1,23 @@
 ---
 title: Radios with conditionally revealing content
 layout: layout-example.njk
+ignore_in_sitemap: true
 ---
 
-{% from 'radios/macro.njk' import govukRadios %}
+{% from "radios/macro.njk" import govukRadios %}
 {% from "input/macro.njk" import govukInput %}
 
 {% set emailHtml %}
 {{ govukInput({
   id: "contact-by-email",
   name: "contact-by-email",
+  type: "email",
   classes: "govuk-!-width-one-third",
   label: {
     text: "Email address"
+  },
+  attributes: {
+    spellcheck: "false"
   }
 }) }}
 {% endset -%}
@@ -21,6 +26,7 @@ layout: layout-example.njk
 {{ govukInput({
   id: "contact-by-phone",
   name: "contact-by-phone",
+  type: "tel",
   classes: "govuk-!-width-one-third",
   label: {
     text: "Phone number"
@@ -32,6 +38,7 @@ layout: layout-example.njk
 {{ govukInput({
   id: "contact-by-text",
   name: "contact-by-text",
+  type: "tel",
   classes: "govuk-!-width-one-third",
   label: {
     text: "Mobile phone number"
@@ -44,10 +51,13 @@ layout: layout-example.njk
   name: "how-contacted",
   fieldset: {
     legend: {
-      text: "How do you want to be contacted?",
+      text: "How would you prefer to be contacted?",
       isPageHeading: true,
-      classes: "govuk-fieldset__legend--m"
+      classes: "govuk-fieldset__legend--xl"
     }
+  },
+  hint: {
+    text: "Select one option."
   },
   items: [
     {

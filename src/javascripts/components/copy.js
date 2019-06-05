@@ -1,32 +1,42 @@
-;(function (global) {
-  'use strict'
-  var $ = global.jQuery
-  var GOVUK = global.GOVUK || {}
-  var ClipboardJS = window.ClipboardJS
+import 'govuk-frontend/vendor/polyfills/Event'
+import ClipboardJS from 'clipboard'
 
-  // This module is dependent on /vendor/clipboard.js
-  GOVUK.copy = {
-    init: function (selector) {
-      $(selector).parent().prepend('<a class="govuk-link app-link--copy" href="#copy" aria-live="assertive">Copy</a>')
-      // Copy to clipboard
-      try {
-        new ClipboardJS('.app-link--copy', {
-          target: function (trigger) {
-            return trigger.nextElementSibling
-          }
-        }).on('success', function (e) {
-          e.trigger.text = 'Copied'
-          e.clearSelection()
-          setTimeout(function () {
-            e.trigger.text = 'Copy'
-          }, 5000)
-        })
-      } catch (err) {
-        if (err) {
-          console.log(err.message)
-        }
+function Copy ($module) {
+  this.$module = $module
+}
+
+Copy.prototype.init = function () {
+  var $module = this.$module
+  if (!$module) {
+    return
+  }
+  var $button = document.createElement('button')
+  $button.className = 'app-copy-button js-copy-button'
+  $button.setAttribute('aria-live', 'assertive')
+  $button.textContent = 'Copy code'
+
+  $module.insertBefore($button, $module.firstChild)
+  this.copyAction()
+}
+Copy.prototype.copyAction = function () {
+  // Copy to clipboard
+  try {
+    new ClipboardJS('.js-copy-button', {
+      target: function (trigger) {
+        return trigger.nextElementSibling
       }
+    }).on('success', function (e) {
+      e.trigger.textContent = 'Code copied'
+      e.clearSelection()
+      setTimeout(function () {
+        e.trigger.textContent = 'Copy code'
+      }, 5000)
+    })
+  } catch (err) {
+    if (err) {
+      console.log(err.message)
     }
   }
-  global.GOVUK = GOVUK
-})(window); // eslint-disable-line semi
+}
+
+export default Copy

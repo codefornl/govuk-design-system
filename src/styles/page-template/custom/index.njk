@@ -1,6 +1,7 @@
 ---
 title: Customised – Page template
 layout: false
+ignore_in_sitemap: true
 ---
 
 {# Example that changes every setting in the template #}
@@ -13,13 +14,13 @@ layout: false
 
 {% extends "template.njk" %}
 
-{% set htmlClasses = 'app-html-class' %}
-{% set htmlLang = 'fr' %}
-{% set assetPath = '' %}
-{% set themeColor = 'blue' %}
-{% set bodyClasses = 'app-body-class' %}
+{% set htmlClasses = "app-html-class" %}
+{% set htmlLang = "en" %}
+{% set assetPath = "" %}
+{% set themeColor = "blue" %}
+{% set bodyClasses = "app-body-class" %}
 
-{% block pageTitle %}GOV.UK - Le meilleur endroit pour trouver des services gouvernementaux et de l'information{% endblock %}
+{% block pageTitle %}GOV.UK - Customised page template{% endblock %}
 
 {% block headIcons %}
     {{ super() }}
@@ -28,11 +29,11 @@ layout: false
 {% block head %}
   <meta name="robots" content="noindex, nofollow">
   <!--[if !IE 8]><!-->
-    <link href="/{{ fingerprint['stylesheets/main.css'] }}" rel="stylesheet" media="all" />
+    <link href="{{ getFingerprint('stylesheets/main.css') }}" rel="stylesheet" media="all" />
   <!--<![endif]-->
   <!--[if lt IE 9]>
-    <link href="/{{ fingerprint['stylesheets/main-ie8.css'] }}" rel="stylesheet" media="all" />
-    <script src="/{{ fingerprint['javascripts/ie.js'] }}"></script>
+    <link href="{{ getFingerprint('stylesheets/main-ie8.css') }}" rel="stylesheet" media="all" />
+    <script src="{{ getFingerprint('javascripts/head-ie8.js') }}"></script>
   <![endif]-->
   <script src="/javascripts/vendor/modernizr.js"></script>
 {% endblock %}
@@ -42,8 +43,8 @@ layout: false
 
 {% block skipLink %}
   {{ govukSkipLink({
-    href: '#main-content',
-    text: 'Passer au contenu principal'
+    href: "#main-content",
+    text: "Skip to main content"
   }) }}
 {% endblock %}
 
@@ -51,27 +52,27 @@ layout: false
   {{ govukHeader({
     homepageUrl: "#",
     containerClasses: "govuk-width-container",
-    serviceName: "Nom du service",
+    serviceName: "Service name",
     serviceUrl: "#",
     navigation: [
       {
-        href: '#1',
-        text: 'Élément de navigation 1',
+        href: "#1",
+        text: "Navigation item 1",
         active: true
       },
       {
-        href: '#2',
-        text: 'Élément de navigation 2'
+        href: "#2",
+        text: "Navigation item 2"
       },
       {
-        href: '#3',
-        text: 'Élément de navigation 3'
+        href: "#3",
+        text: "Navigation item 3"
       }
     ]
   }) }}
 {% endblock %}
 
-{% set mainClasses = 'app-main-class' %}
+{% set mainClasses = "app-main-class" %}
 
 {% block main %}
   {{ super() }}
@@ -82,11 +83,11 @@ layout: false
     tag: {
       text: "alpha"
     },
-    html: 'C\'est un nouveau service - vos <a class="govuk-link" href="#">commentaires</a> nous aideront à l\'améliorer.'
+    html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
   }) }}
   {{ govukBackLink({
-    "href": "#",
-    "text": "Retourner"
+    href: "#",
+    text: "Back"
   }) }}
 {% endblock %}
 
@@ -96,19 +97,23 @@ layout: false
 
 {% block footer %}
   {{ govukFooter({
-    "meta": {
-      "items": [
+    meta: {
+      items: [
         {
-          "href": "#1",
-          "text": "Aidez-moi"
+          href: "#1",
+          text: "Help"
         },
         {
-          "href": "#2",
-          "text": "Politique de confidentialité"
+          href: "#2",
+          text: "Cookies"
         },
         {
-          "href": "#3",
-          "text": "Contactez-nous"
+          href: "#3",
+          text: "Contact"
+        },
+        {
+          href: "#4",
+          text: "Terms and conditions"
         }
       ]
     }
@@ -117,5 +122,5 @@ layout: false
 
 {% block bodyEnd %}
   <script src="/javascripts/vendor/iframeResizer.contentWindow.js"></script>
-  <script src="/public/all.js"></script>
+  <script src="{{ getFingerprint('javascripts/govuk-frontend.js') }}"></script>
 {% endblock %}

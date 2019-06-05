@@ -16,15 +16,15 @@
   }
 
   .app-contact-panel__link:focus {
-    color: govuk-colour("blue");
+    color: $govuk-focus-text-colour;
   }
 }
 
 .app-contact-panel__heading {
-  @extend .govuk-heading-m;
+  @extend %govuk-heading-m;
 }
 
 .app-contact-panel__body {
-  @include govuk-font(19)
+  @include govuk-font(19);
   margin: 0;
 }

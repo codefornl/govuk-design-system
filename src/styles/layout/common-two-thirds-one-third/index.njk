@@ -1,12 +1,16 @@
 ---
 title: Two-thirds / One-third – Layout
 layout: layout-example.njk
+ignore_in_sitemap: true
 ---
 
 {% from "back-link/macro.njk" import govukBackLink %}
 
 <div class="govuk-width-container">
-  {{ govukBackLink({href: '#', text: 'Back'}) }}
+  {{ govukBackLink({
+    href: "#",
+    text: "Back"
+  }) }}
   <main class="govuk-main-wrapper">
 
     <div class="govuk-grid-row">
@@ -16,7 +20,7 @@ layout: layout-example.njk
       </div>
 
       <div class="govuk-grid-column-one-third">
-        <h3 class="govuk-heading-m">One-third column</h3>
+        <h2 class="govuk-heading-m">One-third column</h2>
         <p class="govuk-body">This is a paragraph inside a one-third wide column</p>
       </div>
     </div>

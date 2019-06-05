@@ -1,3 +1,5 @@
+$govuk-page-width: 1100px !default;
+
 @import "govuk-frontend/all";
 
 // App-specific variables
@@ -5,6 +7,8 @@ $app-light-grey: #f8f8f8;
 $app-code-color: #dd1144;
 
 // App-specific components
+@import "components/back-to-top";
+@import "components/banner";
 @import "components/contact-panel";
 @import "components/cookie-banner";
 @import "components/example";
@@ -15,7 +19,10 @@ $app-code-color: #dd1144;
 @import "components/masthead";
 @import "components/mobile-navigation";
 @import "components/navigation";
+@import "components/options";
+@import "components/page-navigation";
 @import "components/pane";
+@import "components/site-search";
 @import "components/subnav";
 @import "components/tabs";
 @import "components/table";
@@ -43,21 +50,6 @@ body {
   }
 }
 
-// Mirrors Bootstrap 4 - open for discussion
-$app-breakpoint-widescreen: 1200px;
-
-// This will be coming to FE later but making it app specific for now
-.app-site-width-container {
-  @media (min-width: $app-breakpoint-widescreen) {
-    max-width: 1100px;
-  }
-}
-
-// This layout is currently used on error pages like 404
-.app-site-width-container--constraint {
-  max-width: 960px;
-}
-
 // This is consistent with Elements - will be changed in FE
 [class*="govuk-grid-column"] {
   @include govuk-media-query($until: desktop) {
@@ -76,11 +68,25 @@ $app-breakpoint-widescreen: 1200px;
 
 .app-content {
 
-  @include govuk-responsive-padding(6);
+  padding: govuk-spacing(3) govuk-spacing(0);
 
-  h1,
-  h2,
-  h3,
+  @include govuk-media-query($from: tablet) {
+    padding: govuk-spacing(6);
+    padding-right: 0;
+  }
+
+  h1 {
+    max-width: 15em;
+  }
+
+  h2 {
+    max-width: 20em;
+  }
+
+  h3 {
+    max-width: 30em;
+  }
+
   h4,
   h5,
   h6,
@@ -117,6 +123,23 @@ $app-breakpoint-widescreen: 1200px;
       display: none;
     }
   }
+
+  // Fix monospace font size when used with relative typography
+  //
+  // Browsers automatically reduce monospace font size
+  //
+  // [1] restores the normal text size in Mozilla Firefox, Google Chrome,
+  // and Safari; this unusual style rule should also be used anywhere where
+  // you would otherwise set the font-family property to ‘monospace’.
+  // [2] restores the normal text size in Internet Explorer and Opera.
+  //
+  // source:
+  // http://code.iamkate.com/html-and-css/fixing-browsers-broken-monospace-font-handling/
+  pre,
+  code {
+    font-family: monospace, monospace; // [1]
+    font-size: 1em; // [2]
+  }
 }
 
 .app-content__header {
@@ -142,50 +165,29 @@ $app-breakpoint-widescreen: 1200px;
   padding: 0;
 }
 
-// Generic chevron
-// can be rotated for --right --bottom --left versions
-.app-chevron--top::before {
-  content: "";
-  display: inline-block;
-  position: relative;
-  top: .15em;
-  left: .15em;
-  width: .45em;
-  height: .45em;
-  margin-top: .25em;
-  margin-right: .5em;
-  transform: rotate(-45deg);
-  border-width: .15em .15em 0 0;
-  border-style: solid;
-  vertical-align: top;
-}
-
-$app-link-colour: #00823b;
-
 // Copy button
-.app-link--copy {
-  &:link,
-  &:active,
-  &:visited,
-  &:hover {
-    @include govuk-font(16);
-    position: absolute;
-    z-index: 1;
-    top: govuk-spacing(3);
-    right: govuk-spacing(3);
-    min-width: 58px;
-    padding: 4px 10px 0;
-    border: 1px solid $app-link-colour;
-    color: $app-link-colour;
-    background-color: govuk-colour("white");
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
+.app-copy-button {
+  $copy-button-colour: #00823b;
 
-    .app-prose-scope & {
-      color: $app-link-colour; // A specific selector to override .app-prose-scope a:link
-      background-color: govuk-colour("white"); // A specific selector to override .app-prose-scope a:focus
-    }
+  @include govuk-font(16);
+  @include govuk-focusable;
+  position: absolute;
+  z-index: 1;
+  top: govuk-spacing(4);
+  right: govuk-spacing(4);
+  min-width: 110px;
+  padding: 4px 10px 2px 10px;
+  border: 1px solid $copy-button-colour;
+  color: $copy-button-colour;
+  background-color: govuk-colour("white");
+  box-shadow: 0 2px 0 0 govuk-colour("green");
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:active {
+    margin-top: 2px;
+    box-shadow: none;
   }
 }
 
@@ -269,14 +271,13 @@ $colour-list-breakpoint: 980px;
 }
 
 pre {
-  position: relative;
+  max-width: 38em;
   margin: 0;
-  padding: govuk-spacing(3);
+  padding: govuk-spacing(4);
   overflow: auto;
   border: 1px solid $govuk-border-colour;
   background-color: $app-light-grey;
   font-size: 16px;
-  max-width: 38em;
   @include govuk-responsive-margin(4, "bottom");
 }
 
@@ -347,5 +348,14 @@ p code {
     @extend %govuk-section-break;
     @extend %govuk-section-break--visible;
     @extend %govuk-section-break--xl;
+  }
+
+  pre + h2 {
+    padding-top: govuk-spacing(4);
+  }
+
+  pre + h3,
+  pre + h4 {
+    padding-top: govuk-spacing(2);
   }
 }

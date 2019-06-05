@@ -2,7 +2,7 @@
 title: Back link
 description: Use the back link component to help users go back to the previous page in a multi-page transaction
 section: Components
-aliases:
+aliases: return link, back button
 backlog_issue_id: 32
 layout: layout-pane.njk
 ---
@@ -11,7 +11,7 @@ layout: layout-pane.njk
 
 Use the back link component to help users go back to the previous page in a multi-page transaction.
 
-{{ example({group: 'components', item: 'back-link', example: 'default', html: true, nunjucks: true, open: false}) }}
+{{ example({group: "components", item: "back-link", example: "default", html: true, nunjucks: true, open: false}) }}
 
 ## When to use this component
 
@@ -21,17 +21,19 @@ You can include a back link on other pages within a multi-page transaction, if i
 
 ## When not to use this component
 
-Don’t use the back link component together with [breadcrumbs](../breadcrumbs). If necessary, you should do research with your users to learn which they find more helpful in your service.
+Never use the back link component together with [breadcrumbs](../breadcrumbs). If necessary, you should do research with your users to learn which they find more helpful in your service.
 
 ## How it works
 
-Back links must always go at the top of a page.
+Always place back links at the top of a page.
 
-Make sure the link takes users to the previous page and that it works even when JavaScript isn’t available.
+Make sure the link takes users to the previous page they were on, in the state they last saw it. Where possible, ensure it works even when JavaScript is not available.
+
+If this is not possible, you should hide the back link when JavaScript is not available. 
 
 There are 2 ways to use the back link component. You can use HTML or, if you are using [Nunjucks](https://mozilla.github.io/nunjucks/) or the [GOV.UK Prototype Kit](https://govuk-prototype-kit.herokuapp.com), you can use the Nunjucks macro.
 
-{{ example({group: 'components', item: 'back-link', example: 'default', html: true, nunjucks: true, open: true}) }}
+{{ example({group: "components", item: "back-link", example: "default", html: true, nunjucks: true, open: false, titleSuffix: "second"}) }}
 
 ## Research on this component
 

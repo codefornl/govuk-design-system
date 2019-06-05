@@ -1,9 +1,10 @@
 ---
 title: Footer with secondary navigation and links to meta information
 layout: layout-example.njk
+ignore_in_sitemap: true
 ---
 
-{% from 'footer/macro.njk' import govukFooter %}
+{% from "footer/macro.njk" import govukFooter %}
 
 {{ govukFooter({
   navigation: [
@@ -128,11 +129,8 @@ layout: layout-example.njk
       {
         href: "#",
         text: "Rhestr o Wasanaethau Cymraeg"
-      },
-      {
-        href: "#",
-        text: "Government Digital Service"
       }
-    ]
+    ],
+    html: 'Built by the <a href="#" class="govuk-footer__link">Government Digital Service</a>'
   }
 }) }}

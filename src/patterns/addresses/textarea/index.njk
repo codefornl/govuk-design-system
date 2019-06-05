@@ -1,6 +1,7 @@
 ---
 title: Textarea addresses
 layout: layout-example.njk
+ignore_in_sitemap: true
 ---
 
 
@@ -9,6 +10,7 @@ layout: layout-example.njk
 {{ govukTextarea({
   name: "address",
   id: "address",
+  autocomplete: "street-address",
   label: {
     text: "What is your address?"
   }

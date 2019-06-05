@@ -1,10 +1,10 @@
 const configPaths = require('./config/paths.json')
-const PORT = configPaths.port
+const PORT = configPaths.testPort
 
 module.exports = {
   server: {
-    command: 'node tasks/serve.js',
-    launchTimeout: 20000,
+    command: `node tasks/test-serve.js`,
+    launchTimeout: 30000,
     port: PORT
   }
 }

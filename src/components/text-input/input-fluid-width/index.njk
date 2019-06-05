@@ -1,66 +1,61 @@
 ---
 title: Fluid width inputs
 layout: layout-example.njk
+ignore_in_sitemap: true
 ---
 
 {% from "input/macro.njk" import govukInput %}
 
-<h3 class="govuk-heading-m">Three-quarters</h3>
+{{ govukInput({
+  label: {
+    text: "Full width"
+  },
+  classes: "govuk-!-width-full",
+  id: "full",
+  name: "full"
+}) }}
 
 {{ govukInput({
   label: {
-    text: "Full name",
-    classes: "govuk-!-width-three-quarters"
+    text: "Three-quarters width"
   },
   classes: "govuk-!-width-three-quarters",
-  id: "full-name",
-  name: "full-name"
+  id: "three-quarters",
+  name: "three-quarters"
 }) }}
-
-<h3 class="govuk-heading-m">Two-thirds</h3>
 
 {{ govukInput({
   label: {
-    text: "Full name",
-    classes: "govuk-!-width-two-thirds"
+    text: "Two-thirds width"
   },
   classes: "govuk-!-width-two-thirds",
-  id: "full-name",
-  name: "full-name"
+  id: "two-thirds",
+  name: "two-thirds"
 }) }}
-
-<h3 class="govuk-heading-m">One-half</h3>
 
 {{ govukInput({
   label: {
-    text: "Full name",
-    classes: "govuk-!-width-one-half"
+    text: "One-half width"
   },
   classes: "govuk-!-width-one-half",
-  id: "full-name",
-  name: "full-name"
+  id: "one-half",
+  name: "one-half"
 }) }}
-
-<h3 class="govuk-heading-m">One-third</h3>
 
 {{ govukInput({
   label: {
-    text: "Full name",
-    classes: "govuk-!-width-one-third"
+    text: "One-third width"
   },
   classes: "govuk-!-width-one-third",
-  id: "full-name",
-  name: "full-name"
+  id: "one-third",
+  name: "one-third"
 }) }}
-
-<h3 class="govuk-heading-m">One-quarter</h3>
 
 {{ govukInput({
   label: {
-    text: "Full name",
-    classes: "govuk-!-width-one-quarter"
+    text: "One-quarter width"
   },
   classes: "govuk-!-width-one-quarter",
-  id: "full-name",
-  name: "full-name"
+  id: "one-quarter",
+  name: "one-quarter"
 }) }}

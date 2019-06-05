@@ -1,39 +1,54 @@
 @include govuk-exports("app-subnav") {
 
   .app-subnav {
-    padding: govuk-spacing(3);
+    padding: govuk-spacing(6) govuk-spacing(3) 0 0;
     @include govuk-font(16);
+
+    @include govuk-media-query($from: tablet) {
+      margin-left: -(govuk-spacing(3));
+    }
   }
 
   .app-subnav__section {
     margin: 0 0 govuk-spacing(4);
     padding: 0;
     list-style-type: none;
+  }
 
-    a,
-    a:link,
-    a:visited {
-      display: block;
-      padding: 8px govuk-spacing(6) 8px govuk-spacing(2);
-      border-left: 4px solid transparent;
-      color: $govuk-link-colour;
+  .app-subnav__link {
+    display: block;
+    padding: 8px govuk-spacing(6) 8px govuk-spacing(2);
+    border-left: 4px solid transparent;
+    text-decoration: none;
+
+    &:focus {
       background: inherit;
-      text-decoration: none;
     }
 
-    a:hover {
+    &:hover,
+    &:active,
+    &:visited {
+      color: $govuk-link-colour;
+    }
+
+    &:hover {
       border-left-color: $govuk-link-hover-colour;
     }
   }
 
-  .app-subnav__section-item--current {
-    a,
-    a:link,
-    a:visited {
-      border-left-color: $govuk-link-colour;
-      background: $app-light-grey;
-      font-weight: bold;
-    }
+  .app-subnav__section-item--current .app-subnav__link {
+    border-left-color: $govuk-link-colour;
+    background: $app-light-grey;
+    font-weight: bold;
+  }
+
+  .app-subnav__section--nested {
+    margin-bottom: 0;
+  }
+
+  .app-subnav__section--nested .app-subnav__link {
+    padding-left: govuk-spacing(4);
+    font-weight: 400;
   }
 
   .app-subnav__theme {

@@ -1,6 +1,7 @@
 ---
 layout: layout-example.njk
 title: Error, empty field – Telephone numbers
+ignore_in_sitemap: true
 ---
 
 {% from "input/macro.njk" import govukInput %}
@@ -15,5 +16,6 @@ title: Error, empty field – Telephone numbers
   id: "telephone-number",
   name: "telephone-number",
   type: "tel",
+  autocomplete: "tel",
   classes: "govuk-input--width-20"
 }) }}

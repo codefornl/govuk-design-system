@@ -1,32 +1,34 @@
 {% extends "template.njk" %}
 
 {% set htmlClasses = 'no-js' %}
+{% set assetUrl = 'https://design-system.service.gov.uk/assets' %}
 
 {% block pageTitle %}{{ title }} – GOV.UK Design System{% endblock %}
 
 {% block head %}
-{% if not TRAVIS_BRANCH or TRAVIS_BRANCH != 'master' %}
-  <meta name="robots" content="noindex, nofollow">
-{% endif %}
-<meta name="description" content="{{description}}">
-<meta property="og:image" content="https://design-system.service.gov.uk/assets/images/govuk-opengraph-image.png">
-  <!--[if !IE 8]><!-->
-    <link href="/{{ fingerprint['stylesheets/main.css'] }}" rel="stylesheet" media="all" />
-  <!--<![endif]-->
-  <!--[if lt IE 9]>
-    <link href="/{{ fingerprint['stylesheets/main-ie8.css'] }}" rel="stylesheet" media="all" />
-    <script src="/{{ fingerprint['javascripts/ie.js'] }}"></script>
-  <![endif]-->
+  {% if not TRAVIS_BRANCH or TRAVIS_BRANCH != 'master' %}
+    <meta name="robots" content="noindex, nofollow">
+  {% endif %}
+  <meta name="og:title" content="{{title}}">
+  <meta name="description" content="{{description}}">
+  <meta name="og:description" content="{{description}}">
   <link rel="canonical" href="{{ canonical }}" />
+  <!--[if lt IE 9]>
+    <link href="{{ getFingerprint('stylesheets/main-ie8.css') }}" rel="stylesheet" media="all" />
+    <script src="{{ getFingerprint('javascripts/head-ie8.js') }}"></script>
+  <![endif]-->
+  <!--[if !IE 8]><!-->
+    <link href="{{ getFingerprint('stylesheets/main.css') }}" rel="stylesheet" media="all" />
+    {% include "_tracking-head.njk" %}
+  <!--<![endif]-->
   <script src="/javascripts/vendor/modernizr.js"></script>
-  {% include "_tracking-head.njk" %}
 {% endblock %}
 
 {# We provide our own header, so blank the one provided by the template #}
 {% block header %}{% endblock %}
 
 {% block main %}
-<div class="app-pane {% block appPaneClasses %}{% endblock %}">
+<div class="app-pane {% block appPaneClasses %}{% endblock %}" id="top">
   {% include "_cookie-banner.njk" %}
   <div class="app-pane__header">
     {% include "_header.njk" %}
@@ -46,5 +48,11 @@
 {% block footer %}{% endblock %}
 
 {% block bodyEnd %}
-<script src="/{{ fingerprint['javascripts/application.js'] }}"></script>
+<script src="{{ getFingerprint('javascripts/govuk-frontend.js') }}"></script>
+  <!--[if !IE 8]><!-->
+    <script src="{{ getFingerprint('javascripts/application.js') }}"></script>
+  <!--<![endif]-->
+  <!--[if lt IE 9]>
+    <script src="{{ getFingerprint('javascripts/application-ie8.js') }}"></script>
+  <![endif]-->
 {% endblock %}

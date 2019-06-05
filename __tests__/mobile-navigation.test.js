@@ -1,23 +1,20 @@
 /* eslint-env jest */
 const devices = require('puppeteer/DeviceDescriptors')
 const iPhone = devices['iPhone 6']
-const configPaths = require('../config/paths.json')
-const PORT = configPaths.port
 
-let browser
+const { setupPage } = require('../lib/jest-utilities.js')
+const configPaths = require('../config/paths.json')
+const PORT = configPaths.testPort
+
 let page
 let baseUrl = 'http://localhost:' + PORT
 
-beforeAll(async (done) => {
-  browser = global.browser
-  page = await browser.newPage()
-  await page.emulate(iPhone)
-  done()
+beforeAll(async () => {
+  page = await setupPage(iPhone)
 })
 
-afterAll(async (done) => {
+afterAll(async () => {
   await page.close()
-  done()
 })
 
 describe('Homepage', () => {

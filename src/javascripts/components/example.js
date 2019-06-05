@@ -1,19 +1,29 @@
-;(function (global) {
-  'use strict'
-  var $ = global.jQuery
-  var GOVUK = global.GOVUK || {}
+// The iframe-resizer module seems to export it's methods in an odd way
+// So we use an underscore here.
+import _ from 'iframe-resizer'
 
-  GOVUK.example = {
-    init: function (selector) {
-      try {
-        // Example iframe; set the height equal to the body height
-        $(selector).iFrameResize({scrolling: 'auto', autoResize: true})
-      } catch (err) {
-        if (err) {
-          console.error(err.message)
-        }
-      }
+function Example ($module) {
+  this.$module = $module
+}
+
+Example.prototype.init = function () {
+  var $module = this.$module
+  if (!$module) {
+    return
+  }
+  this.resize()
+}
+Example.prototype.resize = function () {
+  var $module = this.$module
+
+  try {
+    // Example iframe; set the height equal to the body height
+    _.iframeResizer({ scrolling: 'auto', autoResize: true }, $module)
+  } catch (err) {
+    if (err) {
+      console.error(err.message)
     }
   }
-  global.GOVUK = GOVUK
-})(window); // eslint-disable-line semi
+}
+
+export default Example
